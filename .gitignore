@@ -1,3 +1,8 @@
-# Ignore everything in this directory 
+# Ignore file in this directory 
+*.zip
+*.filter
+*.sample
+*.reduced
+*.dealt
 # Except this file 
 !.gitkeep 
