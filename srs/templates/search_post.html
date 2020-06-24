@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>模拟推荐系统</title>
+    <style type="text/css">
+        {#body{margin: 0; padding: 0}#}
+        .logo{ background: #FFCC00; margin:0 auto; width:960px; height:100px;text-align: center; line-height: 100px;font-size: 40px}
+        .Navigation{background: aqua; margin: auto; width: 960px; height: 100px; text-align: center; line-height: 100px; font-size: 40px}
+        .content{ margin-left:10px;overflow-y:scroll; overflow-x:scroll;width:450px; height:310px}
+        .info{height: 50px; margin: 0 auto;  font-size: 20px; text-align: center; width: 960px}
+        .lanmuhead{background:#FFCC00; width:466px;height:30px;text-align: center}
+        .lanmu1{ width: 960px; height: 350px; margin:0 auto}
+        .lanmu4{background:#ffc; width:466px; height:350px; float:left;border:2px solid #FFCC00; margin:0 0 0 0}
+        .lanmu5{background:#ffc; width:466px; height:350px; float:right;border:2px solid #FFCC00; margin:0 0 0 0}
+        .form{height: 30px; text-align: center; font-size: 20px}
+    </style>
+</head>
+<body>
+<div class="logo">模拟推荐系统</div>
+{#<form action="search" method="post">#}
+{#    {%  csrf_token %}#}
+{#    <input type="text" name="text">#}
+{#    <input type="submit" value="Submit">#}
+{##}
+{#</form>#}
+
+<div class="Navigation">
+    <form action="search" method="post">
+        {%  csrf_token %}
+        请输入内容<input type="text" name="q" maxlength="20" class="form">
+        <input type="submit" value="search" class="form">
+        <select name="select" class="form">
+            <option value="keyword">关键词</option>
+            <option value="user">用户</option>
+        </select>
+    </form>
+</div >
+<div class="info">精确度：{{ precise }}      情感极性：{{ emotion }}</div>
+<div class="lanmu1">
+    <div class="lanmu4">
+        <div class="lanmuhead"> 历史搜索记录</div>
+        <div class="content">
+            {% for i in Ids_his %}
+                <li>{{ i }}</li>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="lanmu5">
+        <div class="lanmuhead"> 推荐搜索内容</div>
+        <div class="content">
+            {% for i in Ids_re %}
+                <li>{{ i }}</li>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
