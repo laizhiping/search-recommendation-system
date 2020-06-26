@@ -37,12 +37,12 @@
         </select>
     </form>
 </div >
-<div class="info">精确度：{{ precise }}      情感极性：{{ emotion }}</div>
+<div class="info">精确度：{{ precise }}      情感极性：{{ sentiment }}</div>
 <div class="lanmu1">
     <div class="lanmu4">
         <div class="lanmuhead"> 历史搜索记录</div>
         <div class="content">
-            {% for i in Ids_his %}
+            {% for i in history %}
                 <li>{{ i }}</li>
             {% endfor %}
         </div>
@@ -51,7 +51,7 @@
     <div class="lanmu5">
         <div class="lanmuhead"> 推荐搜索内容</div>
         <div class="content">
-            {% for i in Ids_re %}
+            {% for i in recommend %}
                 <li>{{ i }}</li>
             {% endfor %}
         </div>

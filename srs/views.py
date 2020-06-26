@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators import csrf
-
+import sys
+sys.path.append("..")
+import FeatureExtractor
+import sentiment_analysis
 # Create your views here.
 
 # def search(request):
@@ -13,18 +16,20 @@ from django.views.decorators import csrf
 #     print(message)
 #     return HttpResponse(message)
 
-
+res = {}
+res['history'] = []
 def search_p(request):
-    res = {}
     if request.POST:
         print(request.POST['q'])
-        res['precise'] = 0.12
-        res['emotion'] = 1.2
-        res['Ids_his'] = ['123','35456','3557']
-        res['Ids_re'] = ['post','resafaf','tesad']
+        res['history'].append(request.POST['q'])
+        result = FeatureExtractor.do_query(request.POST['q'])
+        similarity, recommend = zip(*result)
+        if len(similarity) >= FeatureExtractor.TOP_K:
+            res['precise'] = similarity[FeatureExtractor.TOP_K - 1]
+        else:
+            res['precise'] = similarity[-1]
+        res['sentiment'] = sentiment_analysis.getscore_recommend(recommend)
+        res['recommend'] = recommend
     elif request.GET:
-        res['precise'] = 0.12
-        res['emotion'] = 1.2
-        res['Ids_his'] = ['123', '35456', '3557']
-        res['Ids_re'] = ['get', 'get', 'get']
+        pass
     return render(request, "search_post.html", res)

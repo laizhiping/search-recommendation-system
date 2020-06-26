@@ -45,7 +45,7 @@ def deal_str(sstring = ''):
     # 去除 []
     sstring = sstring.replace('[', '').replace(']', '')
     # sstring = re.search(r'(?<=\[)(.*)(?=\])', sstring).group()
-    print('去掉[]之后：', sstring)
+    # print('去掉[]之后：', sstring)
 
     # 处理书籍或者影视作品
     str1 = re.findall(r'《(.*?)》', sstring)
@@ -88,7 +88,10 @@ def deal_str(sstring = ''):
             # 找出剩下的中文词
             chinese = re.sub(r'[a-zA-Z0-9]+', '', item)
             result.append(chinese)
-    print('预处理之后：', result)
+
+    result = list(filter(None, result))
+    print('预处理之后：', result, '\n')
+    # return result
 
     temp_result = result[:]
     for item in temp_result:
@@ -97,13 +100,16 @@ def deal_str(sstring = ''):
         if not eng_num:
             # 删去原词
             result.remove(item)
-            words= jieba.lcut_for_search(item)
+            # words= jieba.lcut_for_search(item) #搜索引擎模式
+            words = jieba.lcut(item,cut_all=False,HMM=True) # 精确模式
             result.extend(words)
-            # 如果原查询词没在分词列表里，则加入
-            if item not in words:
-                result.append(item) 
-
-    print('分词之后：', result)
+            # # 如果原查询词没在分词列表里，则加入
+            # if item not in words:
+            #     result.append(item) 
+   
+    # 过滤掉空字符串
+    result = list(filter(None, result))
+    print('分词之后：', result, '\n\n')
     return result
 
 def loadSougouQData(path = 'sougou/SogouQ/dealt/'):
