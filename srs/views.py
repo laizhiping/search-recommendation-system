@@ -18,12 +18,21 @@ import sentiment_analysis
 
 res = {}
 res['history'] = []
-def search_p(request):
+def search(request):
     if request.POST:
-        print(request.POST['q'])
-        res['history'].append(request.POST['q'])
-        result = FeatureExtractor.do_query(request.POST['q'])
+        # print(request.POST['q'])
+        query = request.POST['q']
+        # print(query)
+
+        # 查询词加入搜索历史列表
+        res['history'].append(query)
+
+        # 进行查询推荐
+        result = FeatureExtractor.do_query(query)
+        
+        # 获取推荐词和其对应的相似度
         similarity, recommend = zip(*result)
+        # 取第TOP_K个推荐词的精度，若数量不足TOP_K个则取最后一个
         if len(similarity) >= FeatureExtractor.TOP_K:
             res['precise'] = similarity[FeatureExtractor.TOP_K - 1]
         else:

@@ -37,7 +37,7 @@ def getNewSougouQData(path = 'sougou/SogouQ/'):
 
 def deal_str(sstring = ''):
     # sstring = '[FIFA2006好看 ，+《soul》 北京欢迎]'
-    print('原始词：', sstring)
+    # print('原始词：', sstring)
     #包含.认为是网址，包括高级搜索url:
     if '.' in sstring:
         return 
@@ -90,7 +90,7 @@ def deal_str(sstring = ''):
             result.append(chinese)
 
     result = list(filter(None, result))
-    print('预处理之后：', result, '\n')
+    # print('预处理之后：', result, '\n')
     # return result
 
     temp_result = result[:]
@@ -109,7 +109,7 @@ def deal_str(sstring = ''):
    
     # 过滤掉空字符串
     result = list(filter(None, result))
-    print('分词之后：', result, '\n\n')
+    # print('分词之后：', result, '\n\n')
     return result
 
 def loadSougouQData(path = 'sougou/SogouQ/dealt/'):
